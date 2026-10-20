@@ -35,11 +35,15 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build
 
+      
       - name: Package unsigned IPA
         run: |
+          APP=$(find build/Build/Products/Release-iphoneos -maxdepth 1 -name '*.app' -print -quit)
+          test -n "$APP" || { echo "找不到编译后的 App"; exit 1; }
           mkdir -p Payload
-          cp -R build/Build/Products/Release-iphoneos/VoiceChat.app Payload/
+          cp -R "$APP" Payload/
           zip -r VoiceChat-unsigned.ipa Payload
+
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
