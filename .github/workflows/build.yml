@@ -28,7 +28,7 @@ jobs:
           test -n "$PROJECT" || { echo "找不到 Xcode 项目"; exit 1; }
           xcodebuild \
             -project "$PROJECT" \
-            -scheme VoiceChat \
+            -scheme VoiceChatTest \
             -configuration Release \
             -sdk iphoneos \
             -derivedDataPath ../build \
