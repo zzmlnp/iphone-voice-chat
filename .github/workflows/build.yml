@@ -1,44 +1,12 @@
 
-name: Build iOS IPA
-
-on:
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: macos-latest
-
-    steps:
-      - name: Download source
-        uses: actions/checkout@v4
-
-      - name: Install XcodeGen
-        run: brew install xcodegen
-
-      - name: Generate Xcode project
-        run: |
-          cd ios_voice_mvp
-          xcodegen generate
-
       - name: Build iPhone app
         run: |
+          cd ios_voice_mvp
           xcodebuild \
-            -project ios_voice_mvp/VoiceChat.xcodeproj \
+            -project "$(find . -maxdepth 1 -name '*.xcodeproj' -print -quit)" \
             -scheme VoiceChat \
             -configuration Release \
             -sdk iphoneos \
-            -derivedDataPath build \
+            -derivedDataPath ../build \
             CODE_SIGNING_ALLOWED=NO \
             build
-
-      - name: Package unsigned IPA
-        run: |
-          mkdir -p Payload
-          cp -R build/Build/Products/Release-iphoneos/VoiceChat.app Payload/
-          zip -r VoiceChat-unsigned.ipa Payload
-
-      - name: Upload IPA
-        uses: actions/upload-artifact@v4
-        with:
-          name: VoiceChat-unsigned-IPA
-          path: VoiceChat-unsigned.ipa
