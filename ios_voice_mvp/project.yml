@@ -1,0 +1,22 @@
+name: VoiceChatTest
+options:
+  bundleIdPrefix: com.personal.voicechattest
+  deploymentTarget:
+    iOS: '16.0'
+targets:
+  VoiceChatTest:
+    type: application
+    platform: iOS
+    sources: [VoiceChat]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.personal.voicechattest
+        SWIFT_VERSION: '5.0'
+        TARGETED_DEVICE_FAMILY: '1'
+        CODE_SIGNING_ALLOWED: NO
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: '用于把你的中文语音识别成聊天文字'
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: '用于连续语音聊天'
+        INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsArbitraryLoads: YES
+        INFOPLIST_KEY_UIBackgroundModes: ''
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES

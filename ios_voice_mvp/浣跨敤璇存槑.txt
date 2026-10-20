@@ -1,0 +1,16 @@
+苹果原生语音聊天测试版（V0.1）
+
+本包只包含独立 iPhone App 源码和 GitHub Actions 编译流程，不会修改你原来的 app.py/index.html，也不会触碰 data/ 目录。
+
+用途：验证 iPhone 14 Pro Max 上苹果 Speech 中文识别、停顿 2 秒自动提交、电脑后端回复及 Qwen3-TTS 播放后恢复监听。
+
+注意：
+1. 本版是技术验证，不是原网页完整移植。它暂不读取原人物设定、长期记忆和聊天记录，也没有语音分段流式播放。不能把它当作原程序的替代品。
+2. 首次使用需点击开始并允许麦克风和语音识别权限；保持 App 在前台。
+3. iPhone 和电脑需在同一局域网，电脑后端必须允许局域网访问（例如 uvicorn --host 0.0.0.0 --port 8788），Windows 防火墙需允许 8788。电脑 IP 用 ipconfig 查询。不要把 8788 直接暴露到公网。
+4. App 里填 http://电脑局域网IP:8788，模型名称需填写 Ollama 实际完整名称。
+5. GitHub：创建一个新的仓库，上传压缩包里 ios_voice_mvp 目录下的所有文件（含隐藏的 .github/workflows/build.yml）；Actions 中运行 Build iPhone test IPA，下载产物。
+6. GitHub Actions 构建的是未签名 IPA。能否用 Sideloadly 免费 Apple ID 成功重签安装，取决于当前侧载工具及苹果签名限制；不能保证成功。免费签名通常 7 天有效。不要把 Apple ID 密码上传到 GitHub。
+7. 如 Actions 构建报错，保存完整日志；如侧载报错，保存完整报错，以便下一版定点修复。
+8. App 中的 HTTP 连接仅适用于可信局域网；此测试包未实现 HTTPS、认证或安全的远程访问。
+9. 该测试 App 的对话记录仅在当前运行时内存中，关闭 App 会丢失；原网页聊天数据不会受影响。
